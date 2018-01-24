@@ -71,45 +71,56 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/24/Less/">Less解决css方案</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>less v1.7.0 版本已经发布 - 看看都更新了什么<br>快速入门<br>使用 Less<br>客户端用法<br>许可证 FAQs<br>快速入门<br>Less 是一门 CSS 预处理语言，它扩充了 CSS 语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。</p>
+        <p>##快速入门</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Less 是一门 CSS 预处理语言，它扩充了 CSS 语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。</span><br></pre></td></tr></table></figure>
 <p>Less 可以运行在 Node、浏览器和 Rhino 平台上。网上有很多第三方工具帮助你编译 Less 源码。</p>
 <p>例如：</p>
 <p>@base: #f938ab;</p>
 <p>.box-shadow(@style, @c) when (iscolor(@c)) {<br>  -webkit-box-shadow: @style @c;<br>  box-shadow:         @style @c;<br>}<br>.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {<br>  .box-shadow(@style, rgba(0, 0, 0, @alpha));<br>}<br>.box {<br>  color: saturate(@base, 5%);<br>  border-color: lighten(@base, 30%);<br>  div { .box-shadow(0 0 5px, 30%) }<br>}<br>编译为：</p>
-<p>.box {<br>  color: #fe33ac;<br>  border-color: #fdcdea;<br>}<br>.box div {<br>  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);<br>  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);<br>}<br>Improve this section.<br>使用 Less<br>Less 可以通过 npm 在命令行上运行；在浏览器上作为脚本文件下载；或者集成在广大的第三方工具内。请参考 用法 。</p>
+<p>.box {<br>  color: #fe33ac;<br>  border-color: #fdcdea;<br>}<br>.box div {<br>  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);<br>  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);<br>}<br>Improve this section.</p>
+<p>##使用 Less</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Less 可以通过 npm 在命令行上运行；在浏览器上作为脚本文件下载；或者集成在广大的第三方工具内。请参考 用法 。</span><br></pre></td></tr></table></figure>
 <p>安装<br>在服务器端最容易的安装方式就是通过 npm （node.js 的包管理器），方法如下：</p>
 <p>$ npm install -g less<br>命令行用法<br>安装 Less 后，就可以在命令行上调用 Less 编译器了，如下：</p>
 <p>$ lessc styles.less<br>这将输出编译之后的 CSS 代码到 stdout，你可以将输出重定向到一个文件：</p>
 <p>$ lessc styles.less &gt; styles.css<br>若要输出压缩过的 CSS，只需添加 -x 选项。如果希望获得更好的压缩效果，还可以通过 –clean-css 选项启用 Clean CSS 进行压缩。</p>
 <p>执行 lessc 且不带任何参数，就会在命令行上输出所有可用选项的列表。</p>
-<p>在代码中调用 Less<br>可以像下面这样在代码中调用 Less 编译器（Node 平台）。</p>
+<p>##在代码中调用 Less<br>可以像下面这样在代码中调用 Less 编译器（Node 平台）。</p>
 <p>var less = require(‘less’);</p>
 <p>less.render(‘.class { width: (1 + 1) }’, function (e, css) {<br>  console.log(css);<br>});<br>输出为</p>
 <p>.class {<br>  width: 2;<br>}<br>你还可以手动调用分析器（paser）和编译器：</p>
 <p>var parser = new(less.Parser);</p>
-<p>parser.parse(‘.class { width: (1 + 1) }’, function (err, tree) {<br>  if (err) {<br>    return console.error(err)<br>  }<br>  console.log(tree.toCSS());<br>});<br>配置<br>可以给编译器传递多个参数：</p>
+<p>parser.parse(‘.class { width: (1 + 1) }’, function (err, tree) {<br>  if (err) {<br>    return console.error(err)<br>  }<br>  console.log(tree.toCSS());<br>});</p>
+<p>###配置<br>可以给编译器传递多个参数：</p>
 <p>var parser = new(less.Parser)({<br>  paths: [‘.’, ‘./lib’], // Specify search paths for @import directives<br>  filename: ‘style.less’ // Specify a filename, for better error messages<br>});</p>
 <p>parser.parse(‘.class { width: (1 + 1) }’, function (e, tree) {<br>  tree.toCSS({<br>    // Minify CSS output<br>    compress: true<br>  });<br>});<br>Grunt<br>Less 还和流行的 Grunt 构建工具进行了集成，可以参考 grunt-contrib-less 插件。</p>
 <p>第三方工具<br>请参考 用法 一节了解其它工具的细节。</p>
-<p>客户端用法<br>在浏览器上跑 less.js 非常方便开发，但是不推荐用于生产环境。</p>
+<p>##客户端用法<br>在浏览器上跑 less.js 非常方便开发，但是不推荐用于生产环境。</p>
 <p>在客户端使用 Less.js 是最容易的方式，并且在开发阶段很方便，但是，在生产环境中，性能和可靠性非常重要，我们建议最好使用 node.js 或其它第三方工具进行预编译。</p>
 <p>那就开始吧，在页面中加入 .less 样式表的链接，并将 rel 属性设置为 “stylesheet/less”：</p>
 <p><link rel="stylesheet/less" type="text/css" href="styles.less"><br>接下来，下载 less.js 并通过 <script></script> 标签将其引入，放置于页面的 <head> 元素内：</head></p>
 <p><script src="less.js" type="text/javascript"></script><br>提示<br>务必确保在 less.js 之前加载你的样式表。<br>如果加载多个 .less 样式表文件，每个文件都会被单独编译。因此，一个文件中所定义的任何变量、mixin 或命名空间都无法在其它文件中访问。<br>浏览器端设置参数<br>在 <script src="less.js"></script> 之前 定义全局的 less 对象就可以为 Less.js 设置参数：</p>
 <!-- set options before less.js script -->
 <p><script><br>  less = {<br>    env: “development”,<br>    async: false,<br>    fileAsync: false,<br>    poll: 1000,<br>    functions: {},<br>    dumpLineNumbers: “comments”,<br>    relativeUrls: false,<br>    rootpath: “:/a.com/“<br>  };<br></script></p>
-<p><script src="less.js"></script><br>Improve this section.<br>浏览器端下载<br>下载 Less.js v1.7.0</p>
+<p><script src="less.js"></script><br>Improve this section.</p>
+<p>##浏览器端下载<br>下载 Less.js v1.7.0</p>
 <p>下载源码<br>直接从 GitHub 上下载最新的 Less.js 源码。</p>
 <p>通过 GitHub 克隆或 fork 本项目<br>通过 Bower 安装<br>通过 Bower 安装 Less.js 项目。</p>
 <p>bower install less<br>Less CDN 加速<br>CDN.</p>
 <p><script src="http://cdn.bootcss.com/less.js/1.7.0/less.min.js"></script><br>许可证 FAQs<br>Less.js 基于 Apache 2 许可证发布（我们打算将来采用双许可证方式）。版权所有 2009-2014，Alexis Sellier 和 Less 核心小组（见上面）。总结如下：</p>
-<p>赋予你的权力：<br>任意下载并使用 Less.js 的全部或部分代码，可以用于个人、公司内部或商业目的<br>将 Less.js 包含到你的产品中<br>严禁：<br>在没有声明版权归属的情况下使用 Less.js 中的任何代码片段<br>你的义务：<br>如果你的产品中包含 Less.js，必须包含一份 Less.js 的版权协议<br>在你包含了 Less.js 的产品中明确声明 Less.js 的版权归 Less 核心小组<br>不需要：<br>在你的产品中包含 Less。js 自身或你所修改的源码<br>提交你对 Less.js 所做的修改到 Less.js 项目（我们还是鼓励提交对 Less.js 的改进）<br>完整的 Less.js 版权信息位于 项目仓库内，请参考。</p>
-<p>Less.js 及其英文文档由Less 核心开发小组维护。</p>
-<p>Less.js 中文文档由Bootstrap 中文网翻译整理。</p>
-<p>Documentation source code released under the MIT License, documentation under CC BY 3.0.</p>
-<p>当前版本 v1.7.0 · Less.js Issues · Less Docs Issues · Changelog</p>
+<p>赋予你的权力：<br>任意下载并使用 Less.js 的全部或部分代码，可以用于个人、公司内部或商业目的<br>将 Less.js 包含到你的产品中<br>严禁：<br>在没有声明版权归属的情况下使用 Less.js 中的任何代码片段<br>你的义务：<br>如果你的产品中包含 Less.js，必须包含一份 Less.js 的版权协议<br>在你包含了 Less.js 的产品中明确声明 Less.js 的版权归 Less 核心小组</p>
 
       
     </div>
@@ -311,7 +322,7 @@ $ git config --global user.email &quot;your_email@example.com&quot;
       <ul>
         
           <li>
-            <a href="/2018/01/24/Less/">(no title)</a>
+            <a href="/2018/01/24/Less/">Less解决css方案</a>
           </li>
         
           <li>
