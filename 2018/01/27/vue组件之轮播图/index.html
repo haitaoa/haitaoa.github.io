@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="金屋银屋不如自己的小屋！！！" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>海涛的小屋</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###功能分析。从上面的效果图中看，有四个基本功能： 1、自动的轮播的功能；2、点击左右箭头（pre、next）进行的切换；3、点击数字切换到对应的图片的功能。4、鼠标悬停、移出控制轮播图的停、启。 ###场景介绍、分析。环境是 vue 组件的形式，轮播图模块是以组件的形式，内嵌在父组件中。这样的好处是轮播图功能，低耦合，复用性高，即插即用。这边我将轮播图的组件取名为 Carousel.vue，父">
+<meta property="og:type" content="article">
+<meta property="og:title" content="海涛的小屋">
+<meta property="og:url" content="http://yoursite.com/2018/01/27/vue组件之轮播图/index.html">
+<meta property="og:site_name" content="海涛的小屋">
+<meta property="og:description" content="###功能分析。从上面的效果图中看，有四个基本功能： 1、自动的轮播的功能；2、点击左右箭头（pre、next）进行的切换；3、点击数字切换到对应的图片的功能。4、鼠标悬停、移出控制轮播图的停、启。 ###场景介绍、分析。环境是 vue 组件的形式，轮播图模块是以组件的形式，内嵌在父组件中。这样的好处是轮播图功能，低耦合，复用性高，即插即用。这边我将轮播图的组件取名为 Carousel.vue，父">
+<meta property="og:updated_time" content="2018-01-28T11:11:54.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="海涛的小屋">
+<meta name="twitter:description" content="###功能分析。从上面的效果图中看，有四个基本功能： 1、自动的轮播的功能；2、点击左右箭头（pre、next）进行的切换；3、点击数字切换到对应的图片的功能。4、鼠标悬停、移出控制轮播图的停、启。 ###场景介绍、分析。环境是 vue 组件的形式，轮播图模块是以组件的形式，内嵌在父组件中。这样的好处是轮播图功能，低耦合，复用性高，即插即用。这边我将轮播图的组件取名为 Carousel.vue，父">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="海涛的小屋" rel="home">海涛的小屋</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">爱小猴儿，爱生活！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue组件之轮播图" class="post-vue组件之轮播图 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/27/vue组件之轮播图/" data-id="cjd07fadp0005vk0nyl0v7fom" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>###功能分析。<br>从上面的效果图中看，有四个基本功能：</p>
+<p>1、自动的轮播的功能；<br>2、点击左右箭头（pre、next）进行的切换；<br>3、点击数字切换到对应的图片的功能。<br>4、鼠标悬停、移出控制轮播图的停、启。</p>
+<p>###场景介绍、分析。<br>环境是 vue 组件的形式，轮播图模块是以组件的形式，内嵌在父组件中。这样的好处是轮播图功能，低耦合，复用性高，即插即用。这边我将轮播图的组件取名为 Carousel.vue，父组件为 app.vue。</p>
+<p>这里写图片描述 </p>
+<p>###源码分析。<br>1、父组件 app.vue。</p>
+<template><br>    <div id="WBAQPage" class="WBAQPage"><br>        <carousel :slides="slides" :inv="invTime"></carousel><br>    </div><br></template><br><script><br>import carousel from ‘../../components/Carousel.vue’<br>    export default {<br>        data () {<br>            return {<br>                invTime: 2000,<br>                slides: [<br>                    {<br>                        src:require(‘../../assets/pic1.jpg’),<br>                        title:’xxx1’,<br>                    },<br>                    {<br>                        src:require(‘../../assets/pic2.jpg’),<br>                        title:’xxx2’<br>                    },<br>                    {<br>                        src:require(‘../../assets/pic3.jpg’),<br>                        title:’xxx3’<br>                    },<br>                    {<br>                        src:require(‘../../assets/pic4.jpg’),<br>                        title:’xxx4’<br>                    }<br>                ]<br>            }<br>        },<br>        components: {<br>            carousel<br>        }<br>    }<br></script><br><style scoped><br><br></style><br><br>##父组件中主要有三件事：<br><br>1、import 引入子组件进行显示。<br>2、将归纳轮播图属性的数组 slides 传给子组件。<br>3、将轮播间隔的时间参数 invTime 传给子组件。<br>1<br>2<br>3<br>4<br>2、子组件 Carousel.vue<br><br><template><br>  <div class="slide-show" @mouseover="clear" @mouseout="run"><br>    <div class="slide-img"><br>      <a><br>        <transition name="slide-trans"><br>          <img v-if="isShow" :src="slides[nowIndex].src"><br>        </transition><br>        <transition name="slide-trans-old"><br>          <img v-if="!isShow" :src="slides[nowIndex].src"><br>        </transition><br>      </a><br>    </div><br>    <h2></h2><br>    <ul class="slide-pages"><br>      <li @click="goto(prevIndex)">&lt;</li><br>      <li v-for="(item, index) in slides" @click="goto(index)"><br>        <a :class="{on: index === nowIndex}">NaN</a><br>      </li><br>      <li @click="goto(nextIndex)">&gt;</li><br>    </ul><br>  </div><br></template>
+
+<script>
+export default {
+  props: {
+    slides: {
+      type: Array,
+      default: []
+    },
+    inv: {
+      type: Number,
+      default: 1000
+    }
+  },
+  data () {
+    return {
+      nowIndex: 0,
+      isShow: true
+    }
+  },
+  computed: {
+    prevIndex () {
+      if (this.nowIndex === 0) {
+        return this.slides.length - 1
+      }
+      else {
+        return this.nowIndex - 1
+      } 
+    },
+    nextIndex () {
+      if (this.nowIndex === this.slides.length - 1) {
+        return 0
+      }
+      else {
+        return this.nowIndex + 1
+      }
+    }
+  },
+  methods: {
+    goto (index) {
+      this.isShow = false
+      setTimeout(() => {
+        this.isShow = true
+        this.nowIndex = index
+      }, 10)
+    },
+    run () {
+      this.invId = setInterval(() => {
+        this.goto(this.nextIndex)
+      }, this.inv)
+    },
+    clear () {
+      clearInterval(this.invId)
+    }
+  },
+  mounted () {
+    this.run();
+  }
+}
+</script>
+
+<style scoped>
+.slide-trans-enter-active {
+  transition: all .5s;
+}
+.slide-trans-enter {
+  transform: translateX(900px);
+}
+.slide-trans-old-leave-active {
+  transition: all .5s;
+  transform: translateX(-900px);
+}
+.slide-show {
+  position: relative;
+  margin: 15px 15px 15px 0;
+  width: 900px;
+  height: 500px;
+  overflow: hidden;
+}
+.slide-show h2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background: #000;
+  opacity: .5;
+  bottom: 0;
+  height: 30px;
+  text-align: left;
+  padding-left: 15px;
+}
+.slide-img {
+  width: 100%;
+}
+.slide-img img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.slide-pages {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+.slide-pages li {
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  color: #fff;
+}
+.slide-pages li .on {
+  text-decoration: underline;
+}
+</style>
+
+
+<p>接下来，我会对上面提到的四个功能对应的方法，进行简单的分析：</p>
+<p>1、图片的切换（pre、next），实现轮播。</p>
+<p>原理：利用切换 img 中的 src 来达到图片的切换，在之前的父组件中，我们已经对四张图片的属性，进行了数组封装， 那么我们只需要不断改变数组的下标就能达到目的。如 img 中 :src=”slides[0].src” ， 那么显示的就是第一张图片。这样我们就可以抽象出一个 nowIndex 的变量当做是当前图片的下表，这样我们只需要去控制 nowIndex 就能切换。用到的是 goto（index） 的方法。</p>
+<p>goto (index) {<br>        this.nowIndex = index<br>    },</p>
+<p>首先定义 nowIndex 为 0，所以初始化的时候，显示的是第一张图片。当我点击 pre 的时候，</p>
+<p>prevIndex () {<br>      if (this.nowIndex === 0) {<br>        return this.slides.length - 1<br>      }<br>      else {<br>        return this.nowIndex - 1<br>      }<br>    },<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>如果 nowIndex 为 0，那么现在应该显示的最后一张图片。代码中 this.slides.length - 1 ，不然就是 减1. 上一张图片。点击 next 同理：</p>
+<p>nextIndex () {<br>      if (this.nowIndex === this.slides.length - 1) {<br>        return 0<br>      }<br>      else {<br>        return this.nowIndex + 1<br>      }<br>    }</p>
+<p>这边的一大坑点是，你需要将这两个方法写在 计算属性computed 中会比较的优雅，这样一旦 nowIndex 改变，就会触发这两个事件，返回对应的值。</p>
+<p>2、点击数字切换到对应的图片。</p>
+<p>这个的原理和 pre、next 一致，且更加的简单，因为他不需要进行计算，切换的方法只有一个，就是 goto( index ), 所以这边你只需要对每个数字绑定 goto（index）的 click 方法。</p>
+<p>3、自动轮播功能。</p>
+<p>自动轮播，需要用到的就是定时器，即每隔一个时间就调用一次 goto（index）:</p>
+<p>run () {<br>      this.invId = setInterval(() =&gt; {<br>        this.goto(this.nextIndex)<br>      }, this.inv)<br>    },</p>
+<p>这边写了一个 run 的方法，每隔 inv 的时间，就去传入 nextIndex 。这样就可以自动的进行图片切换。</p>
+<p>4、鼠标悬停、移出时进行轮播控制。</p>
+<p>@mouseover=”clear” @mouseout=”run”<br>1<br>当鼠标移出的时候，可以轮播，那就调用 run；如果鼠标移入，停止轮播，那就清除定时器，clear。</p>
+<p>clear () {<br>      clearInterval(this.invId)<br>    }<br>1<br>2<br>3<br>4、vue 动画过渡效果<br>vue 中 transition 可以利用 v-show 和 v-if 进行触发，我这边利用的是 v-if 的显示隐藏触发动画。</p>
+<transition name="slide-trans">//新的图片进入<br>          <img v-if="isShow" :src="slides[nowIndex].src"><br></transition>
+
+<transition name="slide-trans-old">//旧的图片移出<br>          <img v-if="!isShow" :src="slides[nowIndex].src"><br></transition>
+
+<p>这边在配合 CSS 中的 transform 平移，实现切换动画：</p>
+<p>.slide-trans-enter-active {<br>  transition: all .5s;<br>}<br>.slide-trans-enter {<br>  transform: translateX(900px);//大小需要和 show-img 外框的大小一致<br>}<br>.slide-trans-old-leave-active {<br>  transition: all .5s;<br>  transform: translateX(-900px);//大小需要和 show-img 外框的大小一致<br>}</p>
+<p>上面的两个组件的代码可以直接使用，轮播 carousel 组件是独立的，可扩展的，可复用在任何的 vue 项目中。你只需要将图片的属性进行自定义，就可以有自己的轮播图了。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/27/vue组件之轮播图/">
+    <time datetime="2018-01-27T10:34:29.620Z" class="entry-date">
+        2018-01-27
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/01/29/webpack/" rel="prev"><span class="meta-nav">←</span> (no title)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/01/26/github介绍/" rel="next">(no title) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/29/essential/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/29/h5CSS3/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/29/hTML5 API--application program interface(ajax里api代表url 但是在这里代表新方法新特性)/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/29/stellar.js/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/29/canvas/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2018 haitaoa
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
