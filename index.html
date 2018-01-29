@@ -71,9 +71,17 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/essential/">typora-copy-images-to</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/essential/" data-id="cjd07fadg0001vk0nv3t8abm5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/essential/" data-id="cjd08guse0002uk0nl0kurx7a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -155,13 +163,13 @@
 </ul>
 </blockquote>
 <p>安装方式如下，先解压到纯英文路径的文件夹，然后执行以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 注意：需要使用管理员身份运行命令行！！！</span><br><span class="line"><span class="meta">#</span> 切换到 Apache 解压路径中的 bin 目录</span><br><span class="line"><span class="meta">$</span> cd &lt;解压目录&gt;/bin</span><br><span class="line"><span class="meta">#</span> 安装 Apache 服务，-n 参数是指定服务名称</span><br><span class="line"><span class="meta">$</span> httpd.exe -k install -n "Apache"</span><br><span class="line"><span class="meta">#</span> 如果需要卸载 Apache，可以执行以下命令</span><br><span class="line"><span class="meta">$</span> httpd.exe -k uninstall -n "Apache"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 注意：需要使用管理员身份运行命令行！！！</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换到 Apache 解压路径中的 bin 目录</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;解压目录&gt;/bin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装 Apache 服务，-n 参数是指定服务名称</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> httpd.exe -k install -n <span class="string">"Apache"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果需要卸载 Apache，可以执行以下命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> httpd.exe -k uninstall -n <span class="string">"Apache"</span></span></span><br></pre></td></tr></table></figure>
 <p>执行安装命令过后会报一个错，原因是默认的配置文件有问题，需要先调整一下配置文件，才能正常启动服务。</p>
 <p><img src="media/1505988989079.png" alt="1505988989079"></p>
 <p>找到 Apache 解压目录中的 conf 目录下的 httpd.conf 文件，定位到 37 行，将 <code>c:/Apache24</code> 改为解压目录，我这里解压到路径是 <code>C:/Develop/apache</code>，所以我这里修改</p>
 <p><img src="media/1505995465005.png" alt="1505995465005"></p>
 <p>修改完以后，执行以下命令重新测试配置文件是否通过。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> httpd.exe -t</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> httpd.exe -t</span></span><br></pre></td></tr></table></figure>
 <p>这里任然报错：</p>
 <p><img src="media/1505995651671.png" alt="1505995651671"></p>
 <p>通过错误信息得知，这里是因为另外一个地方配置的目录不存在导致的，所以接着调整 246 行的 <code>DocumentRoot</code> 选项：</p>
@@ -172,7 +180,7 @@
 <p>如果有关于 <code>ServerName</code> 的警告提示，不用管它，暂时还不会影响我们接下来的使用和操作。</p>
 </blockquote>
 <p>接着运行以下命令重新启动 Apache 服务：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 注意：需要使用管理员身份运行命令行！！！</span><br><span class="line"><span class="meta">$</span> httpd.exe -k start -n "Apache"</span><br><span class="line"><span class="meta">#</span> 重新启动 Apache 服务</span><br><span class="line"><span class="meta">$</span> httpd.exe -k restart -n "Apache"</span><br><span class="line"><span class="meta">#</span> 停止 Apache 服务</span><br><span class="line"><span class="meta">$</span> httpd.exe -k stop -n "Apache"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 注意：需要使用管理员身份运行命令行！！！</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> httpd.exe -k start -n <span class="string">"Apache"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重新启动 Apache 服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> httpd.exe -k restart -n <span class="string">"Apache"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止 Apache 服务</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> httpd.exe -k stop -n <span class="string">"Apache"</span></span></span><br></pre></td></tr></table></figure>
 <p>回到浏览器中，地址栏输入：<a href="http://localhost/，回车访问，这时正常应该看到" target="_blank" rel="noopener">http://localhost/，回车访问，这时正常应该看到</a> <code>It works!</code></p>
 <p><img src="media/1505997349857.png" alt="1505997349857"></p>
 <h3 id="提供-Web-服务"><a href="#提供-Web-服务" class="headerlink" title="提供 Web 服务"></a>提供 Web 服务</h3><p>启动 Apache，让别人可以使用你机器上安装的 Apache 提供的 Web 服务，访问你机器上的网站。<strong>这种情况下你的机器就是服务器，别人的机器就是客户端</strong>。</p>
@@ -343,9 +351,17 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/h5CSS3/">Html5&amp;CSS3 第一天</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/h5CSS3/" data-id="cjd07fadk0002vk0nvvr26ysc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/h5CSS3/" data-id="cjd08gusg0003uk0n4pyll8kv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -800,9 +816,17 @@
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/hTML5 API--application program interface(ajax里api代表url 但是在这里代表新方法新特性)/">HTML5 API</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/hTML5 API--application program interface(ajax里api代表url 但是在这里代表新方法新特性)/" data-id="cjd07fadn0004vk0nod13vwvn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/hTML5 API--application program interface(ajax里api代表url 但是在这里代表新方法新特性)/" data-id="cjd08gusi0004uk0ny6w5ra8r" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1006,9 +1030,17 @@ navigator.geolocation.clearWatch(watchID);
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/stellar.js/">Stellar.js是什么？</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/stellar.js/" data-id="cjd07fadq0006vk0nns29ldh9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/stellar.js/" data-id="cjd08gusk0005uk0n1lm1f8xv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1080,15 +1112,23 @@ navigator.geolocation.clearWatch(watchID);
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/canvas/">canvas</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/canvas/" data-id="cjd07fad80000vk0n6cafaj59" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/canvas/" data-id="cjd08gus40000uk0no4t89au5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h1 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h1><h2 id="Canvas-简介"><a href="#Canvas-简介" class="headerlink" title="Canvas 简介"></a>Canvas 简介</h2><blockquote>
+        <h2 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h2><h3 id="Canvas-简介"><a href="#Canvas-简介" class="headerlink" title="Canvas 简介"></a>Canvas 简介</h3><blockquote>
 <p>Canvas是什么?</p>
 </blockquote>
 <pre><code>Canvas(画布)是HTML5的一个新特性。传统的网页，总是使用GIF或者JPEG来显示图像，这种图形是需要事先画好，“静态”的图像；随着各种要求的发展，使用Flash或Java的“动态”图像也出现了。而Canvas，则是不使用Flash和Java，而是用Javascript在浏览器上绘图的一种手段。
@@ -1122,9 +1162,9 @@ navigator.geolocation.clearWatch(watchID);
 5.canvas的兼容性非常强,只要支持该标签的,基本功能都一样,因此不用考虑兼容问题.
 6.canvas本身不能绘图,是使用javascript来完成绘图的,canvas对象提供了各种绘图用的API;
 </code></pre>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"600"</span>&gt;</span> 您的浏览器版本不支持canvas,请升级您的浏览器<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="坐标系的方向与位置计算方法"><a href="#坐标系的方向与位置计算方法" class="headerlink" title="坐标系的方向与位置计算方法"></a>坐标系的方向与位置计算方法</h2><p>  <img src="./images/coords.png" alt="坐标系图"></p>
+<h3 id="坐标系的方向与位置计算方法"><a href="#坐标系的方向与位置计算方法" class="headerlink" title="坐标系的方向与位置计算方法"></a>坐标系的方向与位置计算方法</h3><p>  <img src="./images/coords.png" alt="坐标系图"></p>
 <pre><code>1.二维直角坐标系 以左上角为(0,0)点,X轴的正方向向右,Y轴的正方向向下
-</code></pre><h2 id="绘制的基本步骤"><a href="#绘制的基本步骤" class="headerlink" title="绘制的基本步骤"></a>绘制的基本步骤</h2><blockquote>
+</code></pre><h3 id="绘制的基本步骤"><a href="#绘制的基本步骤" class="headerlink" title="绘制的基本步骤"></a>绘制的基本步骤</h3><blockquote>
 <p>1.布置画布:添加canvas元素</p>
 </blockquote>
   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"400"</span>&gt;</span> 您的浏览器版本不支持Canvas,请升级您的浏览器<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -1223,9 +1263,17 @@ context.closePath();
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/webpack/">webpack</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/webpack/" data-id="cjd07fads0007vk0nzw1t1rb4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/webpack/" data-id="cjd08gusp0007uk0nyhyttccr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1441,9 +1489,17 @@ context.closePath();
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/27/vue组件之轮播图/">vue组件之轮播图</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/27/vue组件之轮播图/" data-id="cjd07fadp0005vk0nyl0v7fom" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/27/vue组件之轮播图/" data-id="cjd08gusm0006uk0np94h5q67" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1621,15 +1677,23 @@ export default {
 
       <header class="entry-header">
         
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/26/github介绍/">Git 与Github 介绍</a>
+    </h1>
+  
+
+        
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/26/github介绍/" data-id="cjd07fadm0003vk0npstr4xyq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/26/github介绍/" data-id="cjd08gusb0001uk0nrq72xc4c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="Git-与Github-介绍"><a href="#Git-与Github-介绍" class="headerlink" title="Git 与Github 介绍"></a>Git 与Github 介绍</h2><h3 id="1-1-什么是git-有什么用？"><a href="#1-1-什么是git-有什么用？" class="headerlink" title="1.1 什么是git 有什么用？"></a>1.1 什么是git 有什么用？</h3><p>Git 是一个版本控制管理工具：</p>
+        <h3 id="1-1-什么是git-有什么用？"><a href="#1-1-什么是git-有什么用？" class="headerlink" title="1.1 什么是git 有什么用？"></a>1.1 什么是git 有什么用？</h3><p>Git 是一个版本控制管理工具：</p>
 <ul>
 <li>保存历史记录(版本管理、版本回退)</li>
 <li>多人协同交互</li>
@@ -1778,23 +1842,23 @@ export default {
       <ul>
         
           <li>
-            <a href="/2018/01/29/essential/">(no title)</a>
+            <a href="/2018/01/29/essential/">typora-copy-images-to</a>
           </li>
         
           <li>
-            <a href="/2018/01/29/h5CSS3/">(no title)</a>
+            <a href="/2018/01/29/h5CSS3/">Html5&amp;CSS3 第一天</a>
           </li>
         
           <li>
-            <a href="/2018/01/29/hTML5 API--application program interface(ajax里api代表url 但是在这里代表新方法新特性)/">(no title)</a>
+            <a href="/2018/01/29/hTML5 API--application program interface(ajax里api代表url 但是在这里代表新方法新特性)/">HTML5 API</a>
           </li>
         
           <li>
-            <a href="/2018/01/29/stellar.js/">(no title)</a>
+            <a href="/2018/01/29/stellar.js/">Stellar.js是什么？</a>
           </li>
         
           <li>
-            <a href="/2018/01/29/canvas/">(no title)</a>
+            <a href="/2018/01/29/canvas/">canvas</a>
           </li>
         
       </ul>
